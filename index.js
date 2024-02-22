@@ -63,6 +63,7 @@ const createAndSaveUser = async (username) => {
 app.get('/api/users', async (req, res) => {
 
   try {
+    // const users = await User.find({}).select('-__v');
     const users = await User.find({});
 
     console.log(users);
