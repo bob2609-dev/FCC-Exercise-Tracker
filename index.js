@@ -82,6 +82,7 @@ app.post('/api/users/:_id/exercises', (req, res) => {
   let req_body = req.body;
   console.log(req_body)
   console.log('got here --------------------->>>')
+  
 
 })
 
