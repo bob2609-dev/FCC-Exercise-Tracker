@@ -60,6 +60,10 @@ const createAndSaveUser = async (username) => {
 
 
 }
+
+
+
+
 app.get('/api/users', async (req, res) => {
 
   try {
@@ -71,6 +75,13 @@ app.get('/api/users', async (req, res) => {
   } catch (error) {
     console.error(error)
   }
+
+})
+
+app.post('/api/users/:_id/exercises', (req, res) => {
+  let req_body = req.body;
+  console.log(req_body)
+  console.log('got here --------------------->>>')
 
 })
 
