@@ -156,8 +156,38 @@ app.post('/api/users/:_id/exercises', async (req, res) => {
   }
 });
 
- 
 app.get('/api/users/:_id/logs', (req, res) => {
+  const { from, to, limit } = req.query;
+  console.log(from, to, limit);
+
+  User.findById(req.params._id, (err, user) => {
+    if (user) {
+      let filteredLogs = user.log;
+      
+      if (from || to) {
+        filteredLogs = filteredLogs.filter(log => {
+          const logDate = new Date(log.date);
+          return (!from || logDate >= new Date(from)) && (!to || logDate <= new Date(to));
+        });
+      }
+      
+      const count = filteredLogs.length;
+      
+      if (limit) {
+        filteredLogs = filteredLogs.slice(0, limit);
+      }
+      
+      user.log = filteredLogs;
+      user.count = count;
+      res.json(user);
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  });
+});
+
+ 
+app.get('/api/users/:_id/logs0', (req, res) => {
   const { from, to, limit } = req.query
   console.log(from, to, limit)
 
